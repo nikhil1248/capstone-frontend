@@ -1,0 +1,72 @@
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h3>Add Employee</h3>
+                <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+                        <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                            <div *ngIf="f.firstName.errors.required">First Name is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+                        <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                            <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                            <div *ngIf="f.email.errors.required">Email is required</div>
+                            <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="text" formControlName="phoneNumber" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }" />
+                        <div *ngIf="submitted && f.phoneNumber.errors" class="invalid-feedback">
+                            <div *ngIf="f.phoneNumber.errors.required">Phone Number is required</div>
+                            <div *ngIf="f.phoneNumber.errors.pattern">Enter valid phone number</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Select Role</label>
+                            <select formControlName="roles" (change)="onChange($event.target.value)" id="role_name" name="role_name" class="form-control">
+                                <option *ngFor="let order of roles; let i = index" [value]="roles[i].id">
+                                    {{roles[i].name}}
+                                  </option>
+                            </select>
+                    </div>
+                     <div class="form-group" *ngIf="showManagers">
+                        <label>Select Manager</label>
+                            <select formControlName="manager" id="manager_name" name="manager_name" class="form-control">
+                                <option *ngFor="let manager of managers" [value]="manager.emp_id">
+                                    {{manager.firstname}} {{manager.lastname}}
+                                  </option>
+                            </select>
+                    </div>
+                    <!-- <div class="form-group">
+                        <label>Select Manager</label>
+                        <select class="custom-select" (change)="changeCity($event)" formControlName="managerid">
+                            <option value="">Choose Manager</option>
+                            <option *ngFor="let city of City" [ngValue]="city">{{city}}</option>
+                         </select>
+                        
+                         <div class="invalid-feedback" *ngIf="isSubmitted && cityName.errors?.required">
+                            <sup>*</sup>Please enter your city name
+                         </div>
+                    </div> -->
+                    <div class="form-group">
+                        <button class="btn btn-primary">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

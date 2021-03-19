@@ -1,0 +1,174 @@
+<div class="container">
+<div class="row flex-lg-nowrap">
+ 
+
+  <div class="col">
+    <div class="row">
+      <div class="col mb-3">
+        <div class="card">
+          <div class="card-body">
+            <div class="e-profile">
+              <div class="row">
+                <div class="col-12 col-sm-auto mb-3">
+                  <div class="mx-auto" style="width: 140px;">
+                    <div class="d-flex justify-content-center align-items-center rounded" style="height: 140px;">
+                        <img class="card-img-top imgdisplay"[src]="getImage(employee.photo)"/>
+                    </div>
+                  </div>
+                </div>
+                <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
+                  <div class="text-center text-sm-left mb-2 mb-sm-0">
+                    <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{employee.firstname}} {{employee.lastname}}</h4>
+                    <div class="mt-2">
+                        <input   *ngIf="update" class="btn btn-primary" type="file" (change)="onFileChanged($event)">
+                    </div>
+                  </div>
+                  <div class="text-center text-sm-right">
+                    <span class="badge badge-secondary">{{employee.roles[0].role_name}}</span>
+                  </div>
+                </div>
+              </div>
+             
+              <div class="tab-content pt-3">
+                <div class="tab-pane active">
+                  <form class="form" novalidate="">
+                    <div class="row">
+                      <div class="col">
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group">
+                              <label>First Name</label>
+                              <input class="form-control" type="text" name="firstname" placeholder="First Name" [readonly]="readonly" [(ngModel)]="employee.firstname"/>
+                            </div>
+                          </div>
+                          <div class="col">
+                            <div class="form-group">
+                              <label>Last Name</label>
+                              <input class="form-control" type="text" name="lastname" placeholder="Last Name" [readonly]="readonly" [(ngModel)]="employee.lastname"/>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group">
+                              <label>Email</label>
+                              <input class="form-control" type="text" placeholder="user@example.com" name="email" [readonly]="true" [(ngModel)]="employee.email"/>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+                                <label>Phone Number</label>
+                                <input class="form-control" type="text" placeholder="phonenumber" name="phonenumber" [readonly]="readonly" [(ngModel)]="employee.phonenumber"/>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col">
+                              <div class="form-group">
+                                <label>Street</label>
+                                <input class="form-control" type="text" name="street" placeholder="Street" [readonly]="readonly" [(ngModel)]="employee.address_id.street"/>
+                              </div>
+                            </div>
+                            <div class="col">
+                              <div class="form-group">
+                                <label>City</label>
+                                <input class="form-control" type="text" name="city" placeholder="City"[readonly]="readonly" [(ngModel)]="employee.address_id.city"/>
+                              </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                  <label>Pin Code</label>
+                                  <input class="form-control" type="text" name="pincode" placeholder="Pincode" [readonly]="readonly" [(ngModel)]="employee.address_id.pincode"/>
+                                </div>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                  
+                    <div class="row">
+                      <div class="col d-flex justify-content-end">
+                        <button class="btn btn-primary"  (click)="onSaveChanges()" *ngIf="update" type="submit">Save Changes</button>
+                        <button class="btn btn-primary" (click)="onUpdate()" *ngIf="!update" type="submit">Update Profile</button>
+                      </div>
+                    </div>
+                  </form>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+     
+    </div>
+
+  </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col d-flex justify-content-end">
+              <button class="btn btn-primary" (click)="showPassword= !showPassword" type="submit">Change Password</button>
+            </div>
+          </div>
+          <br>
+          <form [formGroup]="passwordForm" (ngSubmit)="onSubmit()">
+<div class="row" *ngIf="showPassword">
+  <div class="col-12 col-sm-6 mb-3">
+   
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label>Current Password</label>
+          <input class="form-control" formControlName="currentPassword" [ngClass]="{ 'is-invalid': submitted && f.currentPassword.errors }" 
+          type="password">
+          <div *ngIf="submitted && f.currentPassword.errors" class="invalid-feedback">
+              <div *ngIf="f.currentPassword.errors.required">Current Password is required</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label>New Password</label>
+          <input class="form-control"  formControlName="newPassword" [ngClass]="{ 'is-invalid': submitted && f.newPassword.errors }" type="password" />
+          <div *ngIf="submitted && f.newPassword.errors" class="invalid-feedback">
+              <div *ngIf="f.newPassword.errors.required">Password is required</div>
+              <div *ngIf="f.newPassword.errors.minlength">Password must be at least 6 characters</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label>Confirm <span class="d-none d-xl-inline">Password</span></label>
+          <input class="form-control" type="password" formControlName="confirmPassword" [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }">
+          <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
+              <div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
+              <div *ngIf="f.confirmPassword.errors.mustMatch">Passwords must match</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+
+</form>
+</div>
+</div>
+</div>

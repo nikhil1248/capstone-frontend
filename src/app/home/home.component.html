@@ -1,0 +1,63 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card card-primary review-card">
+            <h2 class="card-title">Messages</h2>
+            <div *ngFor="let message of messages | mostRecentFirst | paginate: { itemsPerPage: count, currentPage: p }" class="row review">
+                <div class="col-12 no-gutters review-header">
+                    <span class="reviewAuthor" style="font-size: x-large;">{{ message.employee_name }}</span>
+                    <small class="reviewTimestamp" style="font-size: x-large;">{{ message.message_time }}</small>
+                </div>
+               
+                <div class="col-12">
+                    <p [innerHTML]="message.message_text | htmlLineBreaks"></p>
+                </div>
+            </div>
+            <div class="text-right">
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+              </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #content let-modal>
+    <form (ngSubmit)="onMessageSubmit()">
+        <div *ngIf="modalError" class="alert alert-danger" role="alert">{{ modalError }}</div>
+        <div *ngIf="modalAdded" class="alert alert-success" role="alert">{{ modalAdded }}</div>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Add Message</h4>
+            <button type="button" class="close" aria-label="Close" (click)="close()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+        <div class="modal-body">
+
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <label for="review" class="col-sm-2 control-label"><b>Message</b></label>
+                    <div class="col-sm-12">
+                        <textarea id="review"  name="review" rows="5"
+                            required="required"
+                            class="form-control ng-pristine ng-invalid ng-invalid-required" [(ngModel)]="newMessage.message_text"></textarea>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" (click)="close()">Cancel</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+        </div>
+    </form>
+</ng-template>
+<div class="row">
+    <div class="col-12">
+        <div class="card card-primary review-card">
+            <div class="card-block">
+                <button class="btn btn-primary float-right" (click)="open(content)">Add Message</button>
+            </div>
+        </div>
+    </div>
+</div>

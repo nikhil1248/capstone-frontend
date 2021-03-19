@@ -1,0 +1,54 @@
+
+
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+               
+                    <div class="form-group">
+                            <label class="example-input-wrapper">
+                                Start DateTime
+                                <input placeholder="Date Time:" [(ngModel)]="dateTime"
+                                       [owlDateTime]="dt3" [owlDateTimeTrigger]="dt3">
+                                <owl-date-time  #dt3></owl-date-time>
+                            </label>
+                            <br>
+                            <br>
+                            <!-- <h4>{{dateTime}}</h4> -->
+               
+                            <label class="example-input-wrapper">
+                                End DateTime
+                                <input placeholder="Date Time:" [(ngModel)]="enddateTime"
+                                       [owlDateTime]="dt4" [owlDateTimeTrigger]="dt4">
+                                <owl-date-time  #dt4></owl-date-time>
+                            </label>
+                            <br>
+                        
+                            <!-- <h4>{{enddateTime}}</h4> -->
+                            <br>
+
+                        <div class="autocomplete">
+                            <div class="chips-input-container">
+                            <div class="user-chip" *ngFor="let user of userSelects">
+                              {{user.firstname}}
+                              <span (click)="deleteSelects(user)" class="delete-icon-chip">&#10006;</span>
+                            </div>
+                        
+                            <input name="suggestion" type="text" placeholder="Add Employees" (click)="suggest()" [(ngModel)]="userSelectsString">
+                            </div>
+                        <br>
+                            <div class="autocomplete-items" *ngIf="show">
+                              <div *ngFor="let s of employee" [ngClass]="isSelected(s) ? 'selected-suggestion' : ''" (click)="selectSuggestion(s)">{{ s.firstname }} {{s.lastname}}</div>
+                            </div>
+                        </div>
+                        <br>
+
+
+                        <button class="btn btn-primary" (click)="onSchedule()">Schedule</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

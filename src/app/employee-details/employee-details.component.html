@@ -1,0 +1,28 @@
+<div class="row justify-content-center m-3">
+    <div class="col-sm-8">
+        <div class="card">
+            <div class="card-header text-center">
+                <h2>{{ employee.firstname}} {{employee.lastname}}</h2>
+            </div>
+            <div class="card-body text-center">
+                <img class="card-img-top imgdisplay"[src]="getImage(employee.photo)"/>
+                <h4>{{employee.email}}</h4>
+                <h4>{{employee.phonenumber}}</h4>
+                <h4>{{employee.roles[0].role_name}}</h4>
+            </div>
+            <div class="card-footer text-center">
+                <a  class="btn btn-primary" (click)="showUpdate()" style="margin: 10px; width: auto;">Update</a>
+                <a class="btn btn-primary" (click)="back()" style="margin: 10px">Back</a>
+                <button class="btn btn-danger" mwlConfirmationPopover [popoverTitle]="popoverTitle"
+                    [popoverMessage]="popoverMessage" placement="left" (confirm)="deleteEmployee(employee.emp_id)"
+                    (cancel)="cancelCliked=true">Delete</button>
+            </div>
+        </div>
+        <div *ngIf="update" class="card">
+            <div class="card-body text-center">
+                <app-admin-update *ngIf="employee" [employee]="employee"></app-admin-update>
+            </div>
+
+        </div>
+    </div>
+</div>
